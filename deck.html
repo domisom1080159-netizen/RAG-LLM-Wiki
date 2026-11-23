@@ -360,7 +360,7 @@
           <p><strong>參數化記憶（Parametric）</strong>：LLM 權重負責邏輯推理與語言表達。<br>
              <strong>非參數化記憶（Non-parametric）</strong>：向量資料庫動態存儲真實事實。</p>
           <p style="margin-top: 0.75rem; color: var(--accent-green);">
-            💡 <strong>工程價值</strong>：更新知識只需修改資料庫，<strong>完全不需要重新訓練或微調數十億參數的神經網路！</strong>
+            💡 <strong>工程價值</strong>：更新外部知識庫即可動態擴充事實，<strong>無需重新預訓練整個底層神經網路！</strong>
           </p>
         </div>
       </div>
@@ -453,9 +453,9 @@
         </div>
         <div class="card">
           <h3>🗄️ 為什麼需要「向量資料庫」？</h3>
-          <p>傳統 SQL 資料庫擅長結構化精確比對（如 B-Tree 索引）；現代部分 SQL 資料庫亦能透過外掛（如 PostgreSQL + pgvector）支援向量檢索。</p>
+          <p><strong>向量資料庫</strong>提供專門的<strong>向量索引與近似最近鄰搜尋（ANN，如 HNSW）</strong>能力，針對高維空間距離計算進行深度效能優化。</p>
           <p style="margin-top: 0.5rem; color: var(--accent-cyan);">
-            <strong>專用向量資料庫</strong> 則針對超大規模資料提供專門的<strong>向量索引與近似最近鄰搜尋（ANN，如 HNSW）</strong>原生優化，大幅提升高維檢索吞吐量。
+            💡 <strong>架構補充</strong>：部分傳統 SQL 資料庫亦能透過擴充套件（如 PostgreSQL 的 pgvector）支援向量搜尋；專用向量資料庫則更聚焦於超大規模資料與高併發場景。
           </p>
         </div>
       </div>
@@ -570,8 +570,8 @@
             </tr>
             <tr>
               <td><strong>知識更新與生效</strong></td>
-              <td>知識更新後可供後續檢索使用，但實際生效時間取決於<strong>索引更新、快取與系統架構</strong></td>
-              <td>依訓練方式（如全參數微調 vs. PEFT/LoRA）與更新需求而定，需重新訓練調整權重</td>
+              <td>知識更新後可供後續檢索使用，但<strong>實際生效時間取決於索引更新、快取與系統架構</strong></td>
+              <td><strong>依更新需求與訓練方式而定</strong>（可採 LoRA/PEFT 輕量微調，無須每次皆重新訓練整個模型）</td>
             </tr>
             <tr>
               <td><strong>幻覺抑制</strong></td>

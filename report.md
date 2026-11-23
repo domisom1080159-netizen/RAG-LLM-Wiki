@@ -78,8 +78,8 @@
 | **`wiki/01_intro.md`** | 「根據這些可靠資料寫出完整正確的答案」 | 增列重要警語：**RAG 以檢索資料為基礎進行生成，但不保證最終答案 100% 正確**。詳細剖析檢索失效（Garbage in, garbage out）、模型上下文誤讀與多資料源衝突等可能出錯情境。 | Lewis et al. (2020) [^1] |
 | **`wiki/04_advanced.md`** | 「以最低的算力代價換取極高的回答準確率」 | 修正 Reranking 效益描述，補充其真實工程代價：Cross-Encoder 需在在線查詢時對所有候選文本重新執行神經網絡前向推論，帶來**額外推論延遲（Tens to hundreds of ms）**與**高併發 GPU 算力瓶頸**。 | LlamaIndex 指南 [^3] |
 | **`deck.html` (Slide 7, 8)** | 餘弦相似度寫「值域在 0~1」、幻覺「強行抑制」 | 修正為數學定義值域 $[-1, 1]$（文本實務多落在 $0 \sim 1$）；幻覺改為「大幅降低，但仍須防範檢索雜訊」；增加空白鍵與換頁鍵 `preventDefault()`。 | 線性代數定義、各開源實務 |
-| **`deck.html` (Slide 6)** | 概括否定傳統 SQL 資料庫的高維搜尋能力 | 修正為客觀論述：傳統 SQL 擅長結構化匹配，現代關聯式資料庫亦能透過外掛（如 `pgvector`）支援向量檢索；專用向量資料庫則針對大規模數據提供專門的向量索引與 ANN 原生優化。 | PostgreSQL + pgvector 官方文檔、Pinecone 指南 [^5] |
-| **`deck.html` (Slide 10)** | 寫「寫入資料庫立即生效」；Fine-tuning 稱「每次更新皆須收集資料重訓模型」 | 修正 RAG 生效時間：載明「知識更新後可供後續檢索使用，但實際生效時間取決於**索引更新、快取與系統架構**」；修正 Fine-tuning：說明其成本與頻率依訓練方式（如全參數微調 vs. PEFT/LoRA 輕量微調）與更新需求而定，非絕對重訓。 | AWS 架構手冊 [^4]、現代 PEFT 論文 |
+| **`deck.html` (Slide 6)** | 概括否定傳統 SQL 資料庫進行百萬筆向量搜尋的能力 | 改為說明向量資料庫提供專門的向量索引與近似最近鄰搜尋（ANN）能力，並補充部分傳統 SQL 資料庫亦能透過擴充套件（如 PostgreSQL 的 `pgvector`）支援向量搜尋，專用向量資料庫則聚焦於大規模資料與高併發場景。 | PostgreSQL + pgvector 官方文檔、Pinecone 指南 [^5] |
+| **`deck.html` (Slide 10)** | RAG 寫「寫入資料庫立即生效」；Fine-tuning 稱「每次更新皆須收集資料重訓模型」 | 1. **RAG 知識更新**：補充索引更新、快取與系統架構可能影響實際生效時間（非絕對立即生效）。<br>2. **Fine-tuning 更新**：改為說明依更新需求與訓練方式而定（如可採 LoRA/PEFT 輕量微調，無需每次皆重新訓練整個模型）。 | AWS 架構手冊 [^4]、現代 PEFT 論文 |
 
 ---
 
@@ -88,7 +88,7 @@
 ### (A) 程式自動化檢查（Automated Verification via Script）
 * **測試執行指令**：`powershell -ExecutionPolicy Bypass -File tests\verify.ps1`
 * **測試執行環境**：Windows PowerShell 5.1 (Sandboxed Environment)
-* **執行時間**：2026-11-23 16:07:11
+* **執行時間**：2026-11-23 16:19:16
 * **實測 Exit Code**：`0`
 * **完整真實終端機輸出記錄**：
   ```text
@@ -98,8 +98,8 @@
 
   [檢查項 1] 核心檔案存在性與長度檢核 (共 17 項)...
     [PASS] AGENTS.md (3627 bytes)
-    [PASS] deck.html (27491 bytes)
-    [PASS] report.md (12923 bytes)
+    [PASS] deck.html (27536 bytes)
+    [PASS] report.md (14031 bytes)
     [PASS] tests/verify.ps1 (5674 bytes)
     [PASS] wiki/index.md (2340 bytes)
     [PASS] wiki/log.md (1719 bytes)
@@ -158,7 +158,7 @@
 
 ### 1. 根目錄文件與腳本（共 5 個）
 * `AGENTS.md` (3,627 bytes)：專案工作規範與寫作指引。
-* `deck.html` (27,491 bytes)：11 頁科技深色教學簡報。
+* `deck.html` (27,536 bytes)：11 頁科技深色教學簡報。
 * `report.md` (本文件)：專案實作歷程、除錯紀錄與驗收報告。
 * `raw.zip` (31,204 bytes)：原始文獻與中繼資料歸檔壓縮包（保留不更動）。
 * `tests/verify.ps1` (5,674 bytes)：專案自動化測試檢驗腳本。
